@@ -11,7 +11,6 @@ pipeline {
             steps {
                 sh 'node -v'
                 sh 'java -version'
-                sh 'npm install'
             }
         }
         stage('Build') {
