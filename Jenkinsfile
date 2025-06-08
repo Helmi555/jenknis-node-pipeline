@@ -1,44 +1,41 @@
 pipeline {
-    agent{
-        node{
-            label 'docker-agent-nodejs'
-        }
+    agent {
+        label 'docker-agent-nodejs'
     }
 
-    triggers{
-        pollSCM '* * * * *'
+    triggers {
+        pollSCM('* * * * *')
     }
-    stages{
-        stage('Build'){
-            steps{
-                echo 'Building...'
+
+    stages {
+        stage('Build') {
+            steps {
+                echo '📦 Building...'
                 sh '''
-                cd jenkins-nodejs
-                npm install
+                    cd jenkins-nodejs
+                    npm install
                 '''
             }
         }
-        stage('Test'){
-            steps{
-                echo 'Testing...'
+        stage('Test') {
+            steps {
+                echo '🧪 Testing...'
                 sh 'npm test'
             }
         }
-        stage('Deliver'){
-            steps{
-                echo 'Delivery step (could be Docker build, deploy, etc.)'
-
+        stage('Deliver') {
+            steps {
+                echo '🚚 Delivering (Docker build, deploy, etc.)'
             }
         }
-
     }
+
     post {
-            success {
-                echo '✅ Build succeeded!'
-            }
+        success {
+            echo '✅ Build succeeded!'
+        }
         failure {
             echo '❌ Build failed!'
         }
-     }
-
+    }
 }
