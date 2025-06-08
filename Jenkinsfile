@@ -1,16 +1,19 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18-alpine'
-            args '-u root'
-        }
+    agent { 
+        label 'nodejs-agent'
     }
-
     triggers {
         pollSCM('* * * * *')
     }
 
     stages {
+        stage('Install Dependencies') {
+            steps {
+                sh 'node -v'
+                sh 'java -version'
+                sh 'npm install'
+            }
+        }
         stage('Build') {
             steps {
                 echo '📦 Building...'
