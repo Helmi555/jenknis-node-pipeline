@@ -9,6 +9,7 @@ pipeline {
             steps {
                 sh 'node -v'
                 sh 'java -version'
+                sh 'ls'
             }
         }
         stage('Build') {
