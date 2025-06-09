@@ -27,7 +27,11 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                echo '🚚 Delivering (Docker build, deploy, etc.)'
+                echo '🚚 Delivering (Docker build, ...)'
+                sh '''
+                docker build -t my-node-app .
+                docker run -d --rm -p 8081:3000 --name nodejs-pipeline-server my-node-app
+                '''
             }
         }
     }
