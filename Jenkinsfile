@@ -38,7 +38,8 @@ pipeline {
                     # build & run
                     docker build -t my-node-app .
                     docker stop nodejs-pipeline-server || true
-                    docker rm  nodejs-pipeline-server || true
+                    sleep 2
+                    docker rm nodejs-pipeline-server || true
                     docker run -d --rm -p 8081:3000 --name nodejs-pipeline-server my-node-app
                     '''
             }
