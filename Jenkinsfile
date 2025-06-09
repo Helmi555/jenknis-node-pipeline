@@ -5,7 +5,7 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Check Dependencies') {
             steps {
                 sh 'node -v'
                 sh 'java -version'
