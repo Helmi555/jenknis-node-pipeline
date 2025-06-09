@@ -3,6 +3,7 @@ const express=require('express')
 const app=require('../src/server')
 
 
+
 describe ('GET /ok1', () =>{
 it('should return 200 ok', async() => {
     const res=await request(app).get('/ok1')
@@ -13,6 +14,13 @@ it('should return 200 ok', async() => {
 describe('GET /ok2',()=>{
 it('should return ok 200', async() => {
     const res=await request(app).get('/ok2')
+    expect(res.statusCode).toBe(200)
+});
+})
+
+describe('GET /todo',()=>{
+it('should return ok 200', async() => {
+    const res=await request(app).get('/todo')
     expect(res.statusCode).toBe(200)
 });
 })
