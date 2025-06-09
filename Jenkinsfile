@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'npm test -- --covarage'
+                sh 'npm test -- --coverage'
             }
         }
         stage('Deliver') {
