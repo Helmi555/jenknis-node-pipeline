@@ -29,11 +29,18 @@ pipeline {
             steps {
                 echo '🚚 Delivering (Docker build, ...)'
                sh '''
-                    docker stop nodejs-pipeline-server || true
-                    docker rm nodejs-pipeline-server || true
+                    # disable the old TLS settings
+                    unset DOCKER_HOST DOCKER_CERT_PATH DOCKER_TLS_VERIFY
+
+                    # confirm we see the socket
+                    ls -l /var/run/docker.sock
+
+                    # build & run
                     docker build -t my-node-app .
+                    docker stop nodejs-pipeline-server || true
+                    docker rm  nodejs-pipeline-server || true
                     docker run -d --rm -p 8081:3000 --name nodejs-pipeline-server my-node-app
-                '''
+                    '''
             }
         }
     }
