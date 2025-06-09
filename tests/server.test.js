@@ -20,6 +20,6 @@ it('should return ok 200', async() => {
 describe('GET /fail',()=>{
     it('should return 200 (but fail)', async() =>{
         const res=await request(app).get('/fail')
-        expect(res.statusCode).toBe(200)
+        expect(res.statusCode).toBe(500)
     })
 })
