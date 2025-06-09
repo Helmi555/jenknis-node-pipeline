@@ -16,7 +16,6 @@ pipeline {
             steps {
                 echo '📦 Building...'
                 sh '''
-                    cd jenkins-nodejs
                     npm install
                 '''
             }
