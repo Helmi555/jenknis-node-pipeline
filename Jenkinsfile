@@ -22,16 +22,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                script{
-                    try{
-                        sh 'npm test'
-                    }
-                    catch(err){
-                        echo "Test failed: ${err}, but continuing ..."
-                        junit '**/test-results.xml'
-                    }
-    
-            }
+                sh 'npm test -- --covarage'
             }
         }
         stage('Deliver') {
