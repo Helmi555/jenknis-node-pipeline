@@ -25,10 +25,12 @@ pipeline {
             }
         }
         stage('Deliver') {
-            agent { label 'jenkins-blueocean-docker-access' } // Only this one needs docker
+            agent any
             steps {
                 echo '🚚 Delivering (Docker build, ...)'
-                sh '''
+               sh '''
+                    docker stop nodejs-pipeline-server || true
+                    docker rm nodejs-pipeline-server || true
                     docker build -t my-node-app .
                     docker run -d --rm -p 8081:3000 --name nodejs-pipeline-server my-node-app
                 '''
