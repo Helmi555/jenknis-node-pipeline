@@ -1,11 +1,12 @@
 pipeline {
-      agent { label 'nodejs-agent' }
+      agent none
     triggers {
         pollSCM('* * * * *')
     }
 
     stages {
         stage('Check Dependencies') {
+            agent { label 'nodejs-agent'}
             steps {
                 sh 'node -v'
                 sh 'java -version'
@@ -13,6 +14,7 @@ pipeline {
             }
         }
         stage('Build') {
+            agent { label 'nodejs-agent'}
             steps {
                 echo '📦 Building...'
                 sh '''
@@ -21,11 +23,13 @@ pipeline {
             }
         }
         stage('Test') {
+                        agent { label 'nodejs-agent' }
             steps {
                 sh 'npm test -- --coverage'
             }
         }
         stage('Deliver') {
+            agent{ label 'jenkins-blueocean-docker-access' }
             steps {
                 echo '🚚 Delivering (Docker build, ...)'
                 sh '''
